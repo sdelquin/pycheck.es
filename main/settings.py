@@ -79,6 +79,7 @@ WSGI_APPLICATION = "main.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
+        "HOST": "localhost",
         "NAME": config('DB_NAME', default='pycheck'),
         "USER": config('DB_USER', default='pycheck_user'),
         "PASSWORD": config('DB_PASSWORD', default='pycheck_pass'),
