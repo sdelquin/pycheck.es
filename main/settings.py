@@ -129,3 +129,24 @@ STATIC_ROOT = config('STATIC_ROOT', default='')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+if not DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filename': BASE_DIR / 'pycheck.log',
+                'maxBytes': 1024 * 1024 * 1,  # 1MB
+                'backupCount': 3,
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+            },
+        },
+    }
