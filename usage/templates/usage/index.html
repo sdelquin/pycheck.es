@@ -1,6 +1,5 @@
 {% load static %}
 {% load compress %}
-{% load bootstrap5 %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,13 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pycheck</title>
 
-    <!-- https://django-bootstrap-v5.readthedocs.io/ -->
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
-    {% bootstrap_messages %}
+    <link rel="stylesheet"  type="text/css" href="{% static 'assets/node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet"  type="text/css" href="{% static 'assets/node_modules/bootstrap-icons/font/bootstrap-icons.css' %}">
 
     {% compress css %}
-    <link rel="stylesheet"  type="text/css" href="{% static 'assets/node_modules/bootstrap-icons/font/bootstrap-icons.css' %}">
     <link rel="stylesheet"  type="text/x-scss" href="{% static 'usage/one.scss' %}">
     {% endcompress %}
   </head>
@@ -60,4 +56,6 @@
       </table>
     </div>
   </body>
+
+  <script src="{% static 'assets/node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
 </html>
