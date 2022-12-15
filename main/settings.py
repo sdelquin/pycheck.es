@@ -34,6 +34,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=config.list)
 
 INSTALLED_APPS = [
     'usage.apps.UsageConfig',
+    'assets.apps.AssetsConfig',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'compressor',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
