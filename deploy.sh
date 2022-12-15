@@ -5,5 +5,6 @@ cd "$(dirname "$0")"
 git pull
 pip install -r requirements.txt
 npm install --prefix assets/static/assets
+python manage.py migrate
 python manage.py collectstatic --no-input
 supervisorctl restart pycheck.es
