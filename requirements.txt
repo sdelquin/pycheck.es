@@ -2,3 +2,4 @@ django==4.1.3
 prettyconf==2.2.1
 psycopg2==2.9.5
 django-compressor==4.1
+django-libsass==0.9
