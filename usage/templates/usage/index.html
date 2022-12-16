@@ -9,11 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pycheck</title>
 
-    <link rel="stylesheet"  type="text/css" href="{% static 'common/node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet"  type="text/css" href="{% static 'common/node_modules/bootstrap-icons/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'common/node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'common/node_modules/bootstrap-icons/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'common/node_modules/@highlightjs/cdn-assets/styles/default.min.css' %}">
 
     {% compress css %}
-    <link rel="stylesheet"  type="text/x-scss" href="{% static 'usage/one.scss' %}">
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'usage/one.scss' %}">
     {% endcompress %}
   </head>
   <body>
@@ -22,6 +23,31 @@
       <h1>Modo de uso</h1>
   
       <pre>pycheck mola</pre>
+
+      <div class="code python linenumbers">
+# ********************
+# INTERVALO DESPLEGADO
+# ********************
+
+
+def run(interval: str) -> list:
+    left_symbol = interval[0]
+    right_symbol = interval[-1]
+    nrange = interval[1:-1]
+    nrange_split = nrange.split(',')
+    first_value = int(nrange_split[0])
+    last_value = int(nrange_split[1])
+    if left_symbol == '(':
+        first_value += 1
+    if right_symbol == ']':
+        last_value += 1
+    irange = list(range(first_value, last_value))
+    return irange
+
+
+if __name__ == '__main__':
+    run('[3,10]')
+</div>
 
       <i class="bi bi-1-circle"></i>
   
@@ -54,8 +80,53 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Accordion Item #1
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Accordion Item #2
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Accordion Item #3
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 
   <script src="{% static 'common/node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'common/node_modules/@highlightjs/cdn-assets/highlight.min.js' %}"></script>
+  <script src="{% static 'common/node_modules/highlightjs-line-numbers.js/dist/highlightjs-line-numbers.min.js' %}"></script>
+
+  {% compress js %}
+  <script type="text/javascript" src="{% static 'usage/one.js' %}"></script>
+  {% endcompress %}
 </html>

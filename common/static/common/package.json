@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@highlightjs/cdn-assets": "^11.7.0",
     "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.2"
+    "bootstrap-icons": "^1.10.2",
+    "highlightjs-line-numbers.js": "^2.8.0"
   }
 }
