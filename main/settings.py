@@ -34,7 +34,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=config.list)
 
 INSTALLED_APPS = [
     'usage.apps.UsageConfig',
-    'assets.apps.AssetsConfig',
+    'common.apps.CommonConfig',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
