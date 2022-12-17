@@ -1,5 +1,23 @@
-h1 {
-  color: red;
+$header-height: 60px;
+$footer-height: 100px;
+
+.content {
+  min-height: calc(100vh - #{$header-height} - #{$footer-height});
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+header {
+  nav.navbar {
+    height: $header-height;
+  }
+}
+
+footer {
+  width: 100%;
+  height: $footer-height;
+  line-height: $footer-height;
+  background-color: #f5f5f5;
 }
 
 div.code {
@@ -27,4 +45,8 @@ div.code {
   .hljs-ln-code {
     padding-left: 10px;
   }
+}
+
+.red {
+  color: red;
 }
