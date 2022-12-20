@@ -1,0 +1,22 @@
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pycheck</title>
+
+  {% compress css %}
+  <link rel="stylesheet" type="text/x-scss" href="{% static 'homepage/css/base.scss' %}">
+  {% endcompress %}
+</head>
+<body>
+  <img src="{% static 'homepage/images/bg.jpg' %}" class="bg" alt="Background Blue">  
+  <div class="hero">
+    <a href="{% url 'usage:index' %}">Entrar</a>
+  </div>
+</body>
+</html>

@@ -33,8 +33,6 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=config.list)
 # Application definition
 
 INSTALLED_APPS = [
-    'common.apps.CommonConfig',
-    'usage.apps.UsageConfig',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,6 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'compressor',
+    'common.apps.CommonConfig',
+    'usage.apps.UsageConfig',
+    'homepage.apps.HomepageConfig',
 ]
 
 MIDDLEWARE = [
