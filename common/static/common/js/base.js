@@ -40,7 +40,7 @@ function fixContentHeight() {
 function setAnchorTop() {
   let header = document.querySelector("header");
   const headerHeight = header.offsetHeight;
-  const finalGap = headerHeight + 20;
+  const finalGap = headerHeight + 10;
   document.querySelectorAll("a.anchor").forEach((el) => {
     el.style.top = `-${finalGap}px`;
   });
