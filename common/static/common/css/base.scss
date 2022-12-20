@@ -1,16 +1,8 @@
-$header-height: 60px;
 $footer-height: 100px;
 
 .content {
-  min-height: calc(100vh - #{$header-height} - #{$footer-height});
-  padding-top: 1rem;
+  padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-header {
-  nav.navbar {
-    height: $header-height;
-  }
 }
 
 footer {
@@ -49,4 +41,10 @@ div.code {
 
 .red {
   color: red;
+}
+
+a.anchor {
+  display: block;
+  position: relative;
+  visibility: hidden;
 }

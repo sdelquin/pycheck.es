@@ -6,3 +6,4 @@ db.sqlite3
 /static
 CACHE
 node_modules
+.DS_Store
