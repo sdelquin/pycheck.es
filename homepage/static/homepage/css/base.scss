@@ -1,47 +1,51 @@
-// https://stackoverflow.com/a/16548601
-img.bg {
-  /* Set rules to fill background */
-  min-height: 100%;
-  min-width: 1024px;
-
-  /* Set up proportionate scaling */
+body,
+html {
+  box-sizing: border-box;
   width: 100%;
-  height: auto;
-
-  /* Set up positioning */
-  position: fixed;
-  top: 0;
-  left: 0;
+  height: 100%;
+  margin: 0px;
 }
 
-@media screen and (max-width: 1024px) {
-  /* Specific to this particular image */
-  img.bg {
-    left: 50%;
-    margin-left: -512px; /* 50% */
-  }
+body {
+  background: radial-gradient(#1cb5e0 0%, #000851 100%);
 }
 
 .hero {
+  text-align: center;
   position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 
+  .title {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 30pt;
+    color: white;
+    margin-bottom: 5px;
+  }
+
+  .subtitle {
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 12pt;
+    color: #095a96;
+    margin-bottom: 30px;
+    font-weight: 300;
+  }
+
   a {
     font-family: "Helvetica", "Arial", sans-serif;
-    font-weight: bold;
     text-decoration: none;
-    padding: 15px;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: 5px;
     border: 1px solid white;
     color: white;
-    font-size: 16pt;
+    font-size: 20px;
+    font-weight: 300;
 
     &:hover {
-      background-color: white;
-      color: rgb(21, 109, 181);
+      background-color: #0b609b;
+      border-color: #0b609b;
     }
   }
 }
