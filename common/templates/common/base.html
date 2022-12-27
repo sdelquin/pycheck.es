@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'node_modules/@highlightjs/cdn-assets/styles/default.min.css' %}">
 
     {% compress css %}
-    <link rel="stylesheet" type="text/x-scss" href="{% static 'common/css/base.scss' %}">
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'common/css/main.scss' %}">
     {% block css %}{% endblock css %}
     {% endcompress %}
   </head>
@@ -61,13 +61,19 @@
         <span class="text-muted">Hecho con <i class="bi bi-heart"></i> por Sergio Delgado Quintero</span>
       </div>
     </footer>
+
+    <!-- Back to top button -->
+    <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+      <i class="bi bi-arrow-up"></i>
+    </button>
     
     <script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'node_modules/@highlightjs/cdn-assets/highlight.min.js' %}"></script>
     <script src="{% static 'node_modules/highlightjs-line-numbers.js/dist/highlightjs-line-numbers.min.js' %}"></script>
     
     {% compress js %}
-    <script src="{% static 'common/js/base.js' %}"></script>
+    <script src="{% static 'common/js/utils.js' %}"></script>
+    <script src="{% static 'common/js/main.js' %}"></script>
     {% block js %}{% endblock js %}
     {% endcompress %}
   </body>
