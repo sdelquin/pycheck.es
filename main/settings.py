@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'docs.apps.DocsConfig',
     'homepage.apps.HomepageConfig',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
