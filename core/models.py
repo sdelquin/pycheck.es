@@ -1,3 +1,4 @@
+import hashlib
 import uuid
 from datetime import timedelta
 
@@ -78,6 +79,36 @@ class Student(models.Model):
         '''Registro la actividad de un estudiante.'''
         self.last_active = timezone.now()
         self.save()
+
+
+class Topic(models.Model):
+    name = models.CharField(
+        max_length=32,
+        unique=True,
+    )
+
+
+class Exercise(models.Model):
+    name = models.CharField(
+        max_length=64,
+        unique=True,
+    )
+    hash = models.CharField(
+        max_length=32,
+        unique=True,
+        editable=False,
+    )
+    topic = models.ForeignKey(
+        Topic,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='exercises',
+    )
+
+    def save(self, *args, **kwargs):
+        self.hash = hashlib.md5(self.name.encode()).hexdigest()
+        super().save(*args, **kwargs)
 
 
 class AuthToken(models.Model):
