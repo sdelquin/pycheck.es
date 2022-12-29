@@ -8,7 +8,7 @@ from core.models import AuthToken, Student
 catalog = {}
 
 
-def is_api(func):
+def api_method(func):
     @wraps(func)
     def inner_function(request, *args, **kwargs):
         response = {
@@ -27,15 +27,13 @@ def is_api(func):
     return inner_function
 
 
-@is_api
+@api_method
 def version(request):
     """Devuelve la versión actual de la API."""
-    return {
-        'version': settings.API_VERSION,
-    }
+    return settings.API_VERSION
 
 
-@is_api
+@api_method
 def index(request):
     """Versión y catálogo de llamadas disponibles."""
     return {
@@ -44,7 +42,7 @@ def index(request):
     }
 
 
-@is_api
+@api_method
 def login(request):
     username = request.POST.get('username')
     password_hash = request.POST.get('password_hash')
