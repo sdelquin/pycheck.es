@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'docs.apps.DocsConfig',
     'homepage.apps.HomepageConfig',
     'core.apps.CoreConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -165,3 +166,5 @@ if not DEBUG:
     }
 
 COMPRESS_PRECOMPILERS = (('text/x-scss', 'django_libsass.SassCompiler'),)
+
+API_VERSION = '1'
