@@ -111,6 +111,44 @@ class Exercise(models.Model):
         super().save(*args, **kwargs)
 
 
+class Submission(models.Model):
+    student = models.ForeignKey(
+        Student,
+        on_delete=models.PROTECT,
+        related_name='submissions',
+    )
+    exercise = models.ForeignKey(
+        Exercise,
+        on_delete=models.PROTECT,
+        related_name='submissions',
+    )
+    passed = models.BooleanField(default=False)
+    body = models.TextField()
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def check_exercise(self):
+        # if self.is_submission_open():
+        # ...
+        raise NotImplementedError()
+
+    def is_submission_open(self):
+        raise NotImplementedError()
+
+
+class Deadline(models.Model):
+    context = models.ForeignKey(
+        Context,
+        on_delete=models.PROTECT,
+        related_name='deadlines',
+    )
+    exercise = models.ForeignKey(
+        Exercise,
+        on_delete=models.PROTECT,
+        related_name='deadlines',
+    )
+    closed_at = models.DateTimeField(default=timezone.now)
+
+
 class AuthToken(models.Model):
     student = models.ForeignKey(
         Student,
