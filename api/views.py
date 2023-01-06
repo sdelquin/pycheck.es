@@ -1,14 +1,18 @@
+import json
 from functools import wraps
 
 from django.conf import settings
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
-from core.models import AuthToken, Student
+from core.models import AuthToken, Student, Context
 
 catalog = {}
 
 
 def api_method(func):
+
+    @csrf_exempt
     @wraps(func)
     def inner_function(request, *args, **kwargs):
         response = {
@@ -29,8 +33,20 @@ def api_method(func):
 
 @api_method
 def version(request):
-    """Devuelve la versión actual de la API."""
+    """Devuelve la versión actual de la API.
+    """
     return settings.API_VERSION
+
+
+@api_method
+def status(request):
+    """Devuelve el estado y versión de la API.
+    """
+    return {
+        'active': True,
+        'version': settings.API_VERSION,
+        'timezone': settings.TIME_ZONE,
+    }
 
 
 @api_method
@@ -42,12 +58,37 @@ def index(request):
     }
 
 
+def login_error(username, context_code):
+    return ValueError(
+        'Error al intentar validarse como usuario.'
+        f' Puede que el código del contexto {context_code} sea inválido,'
+        f' o el username {username} no es válido en ese'
+        ' contexto, o la contraseña es incorrecta.'
+    )
+
+
 @api_method
 def login(request):
-    username = request.POST.get('username')
-    password_hash = request.POST.get('password_hash')
-    student = Student.load_by_username(username)
-    if student and student.check_password(password_hash):
-        token = AuthToken.issue_token_for_student(student)
-        return token
-    raise ValueError('El username {username} no existe')
+    import logging; logging.error("login starts")
+    if request.method != 'POST':
+        raise ValueError('Esta API solo puede ser llamada con POST')
+    data = json.loads(request.body)
+    import logging; logging.error("data is %r (%s)", data, type(data))
+    context_code = data['context']
+    import logging; logging.error("context_code is %r (%s)", context_code, type(context_code))
+    username = data['username']
+    import logging; logging.error("username is %r (%s)", username, type(username))
+    context = Context.load_context_by_code(context_code)
+    import logging; logging.error("context is %r (%s)", context, type(context))
+    if context is None:
+        raise login_error(context_code, username)
+    student = context.load_student_by_username(username)
+    import logging; logging.error("student is %r (%s)", student, type(student))
+    if student is None:
+        raise login_error(context_code, username)
+    password = data['password']
+    if student.check_password(password) is False:
+        raise login_error(context_code, username)
+    token = AuthToken.issue_token_for_student(student)
+    student.touch()
+    return token.value
