@@ -1,7 +1,9 @@
 import hashlib
 import uuid
 from datetime import timedelta
+from typing import Optional
 
+from django.contrib.auth.hashers import check_password
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
@@ -25,6 +27,13 @@ class Context(models.Model):
     )
 
     @classmethod
+    def load_context_by_code(cls, code: str):
+        try:
+            return cls.objects.get(code=code)
+        except (ObjectDoesNotExist, MultipleObjectsReturned):
+            return None
+
+    @classmethod
     def create_context(cls, name, code='', start_date=None, end_date=None, duration=91):
         code = code or slugify(name)
         start_date = start_date or timezone.now().date()
@@ -33,13 +42,11 @@ class Context(models.Model):
         context.save()
         section = Section(name='default', start_date=start_date, context=context)
         section.save()
-        return
+        return context
 
-    def load_by_username(self, username):
+    def load_student_by_username(self, username: str) -> Optional['Student']:
         '''Recupera un estudiante de la base de datos usando el username.
-        Si no es capaz de encontrar ningún alumno con ese
-        username, devuelve `None`.
-        '''
+        Si no es capaz de encontrar ningún alumno con ese username, devuelve `None`.'''
         try:
             return self.students.get(username=username)
         except (ObjectDoesNotExist, MultipleObjectsReturned):
@@ -58,7 +65,7 @@ class Section(models.Model):
 
 class Student(models.Model):
     username = models.SlugField(max_length=32)
-    password_hash = models.CharField(max_length=32)  # md5
+    password_hash = models.CharField(max_length=128)  # md5
     context = models.ForeignKey(
         Context,
         on_delete=models.PROTECT,
@@ -79,6 +86,9 @@ class Student(models.Model):
         '''Registro la actividad de un estudiante.'''
         self.last_active = timezone.now()
         self.save()
+
+    def validate_password(self, password):
+        return check_password(password, self.password_hash)
 
 
 class Topic(models.Model):
@@ -175,7 +185,7 @@ class AuthToken(models.Model):
         self.save()
 
     @classmethod
-    def issue_token_for_student(cls, student):
+    def issue_token_for_student(cls, student: Student) -> 'AuthToken':
         token = cls(student=student)
         token.save()
         student.touch()
