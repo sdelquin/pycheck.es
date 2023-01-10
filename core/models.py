@@ -1,8 +1,9 @@
 import hashlib
 import uuid
 from datetime import timedelta
+from typing import Optional
 
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
@@ -26,10 +27,9 @@ class Context(models.Model):
     )
 
     @classmethod
-    def load_context_by_code(cls, code):
+    def load_context_by_code(cls, code: str):
         try:
-            result = cls.objects.get(code=code)
-            return result
+            return cls.objects.get(code=code)
         except (ObjectDoesNotExist, MultipleObjectsReturned):
             return None
 
@@ -44,11 +44,9 @@ class Context(models.Model):
         section.save()
         return context
 
-    def load_student_by_username(self, username):
+    def load_student_by_username(self, username: str) -> Optional['Student']:
         '''Recupera un estudiante de la base de datos usando el username.
-        Si no es capaz de encontrar ningún alumno con ese
-        username, devuelve `None`.
-        '''
+        Si no es capaz de encontrar ningún alumno con ese username, devuelve `None`.'''
         try:
             return self.students.get(username=username)
         except (ObjectDoesNotExist, MultipleObjectsReturned):
@@ -89,10 +87,9 @@ class Student(models.Model):
         self.last_active = timezone.now()
         self.save()
 
-    def check_password(self, password):
-        import logging; logging.error("password is %r (%s)", password, type(password))
-        import logging; logging.error("self.password_hash is %r (%s)", self.password_hash, type(self.password_hash))
+    def validate_password(self, password):
         return check_password(password, self.password_hash)
+
 
 class Topic(models.Model):
     name = models.CharField(
@@ -150,7 +147,7 @@ class AuthToken(models.Model):
         self.save()
 
     @classmethod
-    def issue_token_for_student(cls, student):
+    def issue_token_for_student(cls, student: Student) -> 'AuthToken':
         token = cls(student=student)
         token.save()
         student.touch()
