@@ -17,4 +17,4 @@ jobs:
           host: pycheck.es
           username: ${{ secrets.PRODUCTION_SSH_USERNAME }}
           key: ${{ secrets.PRODUCTION_SSH_KEY }}
-          script: ~/code/pycheck.es/deploy.sh
+          script: cd ~/code/pycheck.es && just deploy

@@ -2,6 +2,10 @@
 
 Servicio web asociado a [pycheck](https://github.com/sdelquin/pycheck).
 
+## Desarrollo
+
+[just](https://github.com/casey/just)
+
 ## Producción
 
 Dependencias:
